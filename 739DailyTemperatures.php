@@ -1,8 +1,17 @@
-<?php
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 class Solution
 {
+    /**
+     * @param Integer[] $temperatures
+     *
+     * @return Integer[]
+     */
+    public function dailyTemperatures(array $temperatures): array
+    {
+        return $this->dailyTemperaturesExponent($temperatures);
+    }
+
     /**
      * @param Integer[] $temperatures
      *
@@ -42,9 +51,58 @@ class Solution
      *
      * @return Integer[]
      */
-    public function dailyTemperatures(array $temperatures): array
+    public function dailyTemperaturesWrong(array $temperatures): array
     {
+        $descendingTemperatures = $temperatures;
+        $temperaturesLen = count($temperatures);
+        $hotForecast = array_fill(0, $temperaturesLen, 0);
 
+        arsort($descendingTemperatures);
+
+        $hottestDays = [
+            'earliest' => ['temperature' => current($descendingTemperatures), 'day' => key($descendingTemperatures)],
+            'latest' => ['temperature' => current($descendingTemperatures), 'day' => key($descendingTemperatures)],
+        ];
+        $prevHottestDays = $hottestDays;
+
+        foreach ($descendingTemperatures as $currentDay => $currentTemperature) {
+            if ($currentTemperature < $hottestDays['latest']['temperature']) {
+                if ($currentDay > $hottestDays['latest']['day']) {
+                    $prevHottestDays['latest'] = $hottestDays['latest'];
+
+                    $hottestDays['latest']['day'] = $currentDay;
+                    $hottestDays['latest']['temperature'] = $currentTemperature;
+                }
+
+                $latestHotterDay = $prevHottestDays['latest']['day'];
+            } else {
+                $latestHotterDay = $hottestDays['latest']['day'];
+            }
+
+            if ($currentTemperature < $hottestDays['earliest']['temperature']) {
+                if ($currentDay < $hottestDays['earliest']['day']) {
+                    $prevHottestDays['earliest'] = $hottestDays['earliest'];
+
+                    $hottestDays['earliest']['day'] = $currentDay;
+                    $hottestDays['earliest']['temperature'] = $currentTemperature;
+                }
+
+                $earliestHotterDay = $prevHottestDays['earliest']['day'];
+            } else {
+                $earliestHotterDay = $hottestDays['earliest']['day'];
+            }
+
+            // Main algo
+            if ($currentDay < $earliestHotterDay) {
+                $hotForecast[$currentDay] = $earliestHotterDay - $currentDay;
+            } elseif ($earliestHotterDay < $currentDay && $currentDay < $latestHotterDay) {
+                $hotForecast[$currentDay] = $latestHotterDay - $currentDay;
+            } elseif ($currentDay >= $latestHotterDay) {
+                $hotForecast[$currentDay] = 0;
+            }
+        }
+
+        return $hotForecast;
     }
 }
 
@@ -54,8 +112,12 @@ class Solution
 $solution = new Solution();
 $testCases = [
     [
-        'temperatures' => [73,74,75,71,69,72,76,73],
-        'expectedHotForecast' => [1,1,4,2,1,1,0,0],
+        'temperatures' => [75,71,69,72],
+        'expectedHotForecast' => [0,2,1,0],
+    ],
+    [
+        'temperatures' => [80,90,73,74,75,71,69,69,69,69,72,76,76,76,73],
+        'expectedHotForecast' => [1,0,1,1,6,5,4,3,2,1,1,0,0,0,0],
     ],
     [
         'temperatures' => [30,40,50,60],

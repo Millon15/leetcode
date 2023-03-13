@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-class Solution {
-    public const ROMAN_NUMBERS = [
+class Solution
+{
+    private const ROMAN_NUMBERS = [
         'I' => 1,
         'V' => 5,
         'X' => 10,

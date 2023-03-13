@@ -7,7 +7,7 @@ class Solution
      *
      * @return int[]
      */
-    function sortedSquares(array $nums): array
+    public function sortedSquares(array $nums): array
     {
         if (empty($nums)) {
             return $nums;
@@ -25,7 +25,7 @@ class Solution
             if ($left <= $right) {
                 $result[$resultIndex] = $right ** 2;
                 --$rightIndex;
-            } elseif ($left > $right) {
+            } else {
                 $result[$resultIndex] = $left ** 2;
                 ++$leftIndex;
             }

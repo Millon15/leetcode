@@ -2,16 +2,10 @@
 
 class Solution
 {
-    /**
-     * @param Integer $n
-     * @param Integer[][] $edges
-     * @param Integer $source
-     * @param Integer $destination
-     *
-     * @return Boolean
-     */
+    /** @param int[][] $edges */
     public function validPath(int $n, array $edges, int $source, int $destination): bool
     {
+        // TODO complete this algo :)
         return true;
     }
 }

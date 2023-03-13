@@ -9,6 +9,7 @@ class Solution
      */
     public function dailyTemperatures(array $temperatures): array
     {
+        // TODO complitely rewrite the algo
         return $this->dailyTemperaturesExponent($temperatures);
     }
 
@@ -17,7 +18,7 @@ class Solution
      *
      * @return Integer[]
      */
-    public function dailyTemperaturesExponent(array $temperatures): array
+    private function dailyTemperaturesExponent(array $temperatures): array
     {
         $temperaturesLen = count($temperatures);
         $hotForecast = array_fill(0, $temperaturesLen, 0);
@@ -51,7 +52,7 @@ class Solution
      *
      * @return Integer[]
      */
-    public function dailyTemperaturesWrong(array $temperatures): array
+    private function dailyTemperaturesWrong(array $temperatures): array
     {
         $descendingTemperatures = $temperatures;
         $temperaturesLen = count($temperatures);

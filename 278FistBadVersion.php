@@ -18,7 +18,7 @@ abstract class VersionControl
     abstract public function firstBadVersion($n): int;
 }
 
-class Solution extends VersionControl
+final class Solution extends VersionControl
 {
     private int $leftBoundary;
     private int $rightBoundary;

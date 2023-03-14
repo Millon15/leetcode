@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-class Solution
+final class Solution
 {
     /** @param int[][] $edges */
     public function validPath(int $n, array $edges, int $source, int $destination): bool

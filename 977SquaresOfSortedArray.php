@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-class Solution
+final class Solution
 {
     /**
      * @param int[] $nums
